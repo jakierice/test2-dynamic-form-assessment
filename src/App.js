@@ -25,12 +25,14 @@ const roomsFixture = {
 
 class App extends React.Component {
   componentDidMount() {
-    const rooms = JSON.stringify(roomsFixture);
-    window.sessionStorage.setItem('rooms', rooms);
+    if (!sessionStorage.getItem('rooms')) {
+      const rooms = JSON.stringify(roomsFixture);
+      sessionStorage.setItem('rooms', rooms);
+    }
   }
 
   render() {
-    const roomsInitial = JSON.parse(window.sessionStorage.getItem('rooms')) || roomsFixture;
+    const roomsInitial = JSON.parse(sessionStorage.getItem('rooms')) || roomsFixture;
 
     return (
       <RoomSelectionForm initialValues={roomsInitial}>

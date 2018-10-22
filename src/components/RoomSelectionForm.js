@@ -26,9 +26,8 @@ export default class extends Component {
   submitRooms = e => {
     e.preventDefault();
     const stringRooms = JSON.stringify(this.state);
-    console.log('stringRooms', stringRooms);
 
-    window.sessionStorage.setItem('rooms', stringRooms);
+    sessionStorage.setItem('rooms', stringRooms);
   };
 
   render() {
