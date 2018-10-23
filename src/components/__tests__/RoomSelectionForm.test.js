@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
 import { cleanup, render, fireEvent } from 'react-testing-library';
-import { RoomOption, RoomSelectionForm } from './components';
-import roomsFixture from './roomsFixture';
+import RoomSelectionForm from '../RoomSelectionForm';
+import RoomOption from '../RoomOption';
+import roomsFixture from '../../roomsFixture';
 
 afterEach(cleanup);
 
@@ -70,7 +71,7 @@ test('<RoomSelectionForm> all rooms', () => {
   expect(thirdRoomOption.checked).toBe(false);
   expect(fourthRoomOption.checked).toBe(false);
 
-  // room option should be checked after click
+  // all rooms should be selected after last option checked
   fireEvent.click(fourthRoomOption);
   expect(secondRoomOption.checked).toBe(true);
   expect(thirdRoomOption.checked).toBe(true);
