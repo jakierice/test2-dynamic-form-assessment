@@ -28,6 +28,7 @@ const OccupantsSelect = ({
     <SelectInputsWrapper>
       <label htmlFor={adultOccupantsId}>
         Adults (18+)
+        <br />
         <select
           disabled={!active}
           id={adultOccupantsId}
@@ -46,6 +47,7 @@ const OccupantsSelect = ({
       </label>
       <label htmlFor={childOccupantsId}>
         Children (0-17)
+        <br />
         <select
           disabled={!active}
           id={childOccupantsId}

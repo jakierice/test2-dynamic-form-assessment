@@ -36,7 +36,9 @@ const RoomOption = (props) => {
               value={roomNumber}
               onChange={() => handleRoomSelect(roomNumber)}
             />
-            Room {roomNumber}
+            Room
+            {' '}
+            {roomNumber}
           </label>
         )}
       </RoomNumberWrapper>
