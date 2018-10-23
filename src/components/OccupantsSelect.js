@@ -38,6 +38,7 @@ const OccupantsSelect = ({
             roomNumber,
           })
           }
+          data-testid="adult-count-select"
         >
           <option value="1">1</option>
           <option value="2">2</option>
@@ -55,6 +56,7 @@ const OccupantsSelect = ({
           })
           }
           value={active ? occupants[roomNumber].childCount : 0}
+          data-testid="child-count-select"
         >
           <option value="0">0</option>
           <option value="1">1</option>
@@ -73,6 +75,7 @@ OccupantsSelect.propTypes = {
       childCount: PropTypes.number.isRequired,
     }),
   }).isRequired,
+  roomCount: PropTypes.number.isRequired,
   roomNumber: PropTypes.number.isRequired,
 };
 

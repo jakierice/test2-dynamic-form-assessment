@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 export default class extends Component {
   static propTypes = {
+    children: PropTypes.func.isRequired,
     initialRoomsData: PropTypes.shape({
       roomCount: PropTypes.number.isRequired,
       occupants: PropTypes.shape({
