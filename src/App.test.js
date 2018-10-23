@@ -1,9 +1,45 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import React, { Fragment } from 'react';
+import { render } from 'react-testing-library';
+import { RoomOption, RoomSelectionForm } from './components';
+import roomsFixture from './roomsFixture';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+test('<RoomSelectionForm>', () => {
+  const wrapper = (
+    <RoomSelectionForm initialRoomsData={roomsFixture}>
+      {({
+        roomCount, setRoomCount, setOccupants, occupants, submitRooms,
+      }) => (
+        <Fragment>
+          <RoomOption
+            roomNumber={1}
+            roomCount={roomCount}
+            occupants={occupants}
+            handleRoomSelect={setRoomCount}
+            handleOccupantSelect={setOccupants}
+          />
+          <RoomOption
+            roomNumber={2}
+            roomCount={roomCount}
+            occupants={occupants}
+            handleRoomSelect={setRoomCount}
+            handleOccupantSelect={setOccupants}
+          />
+          <RoomOption
+            roomNumber={3}
+            roomCount={roomCount}
+            occupants={occupants}
+            handleRoomSelect={setRoomCount}
+            handleOccupantSelect={setOccupants}
+          />
+          <button onClick={submitRooms} type="submit">
+            Submit
+          </button>
+        </Fragment>
+      )}
+    </RoomSelectionForm>
+  );
+
+  const { debug } = render(wrapper);
+
+  debug();
 });

@@ -1,33 +1,33 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import OccupantsSelect from './OccupantsSelect';
 
 const OptionWrapper = styled.div`
-  background: #d3d3d3;
-  margin: 2rem;
-  min-width: 15rem;
-  /* width: 10rem;
-  height: 8rem; */
+  background: ${({ active }) => (active ? '#ffffff' : '#dbdbe3')};
+  border-radius: 14px;
+  border: 8px solid ${({ active }) => (active ? '#e7e7e7' : '#ced0dd')};
+  margin-right: 0.4rem;
+  max-width: 12rem;
 `;
 
-const RoomOption = ({
-  roomNumber,
-  roomCount,
-  handleRoomSelect,
-  handleOccupantSelect,
-  occupants,
-}) => {
+const RoomNumberWrapper = styled.div`
+  background: ${({ active }) => (active ? '#e7e7e7' : '#dbdbe3')};
+  padding: 1rem 1.2rem;
+  width: 100%;
+`;
+
+const RoomOption = (props) => {
+  const { roomNumber, roomCount, handleRoomSelect } = props;
   const active = roomNumber <= roomCount;
   const optionId = `room-option-${roomNumber}`;
-  const childOccupantsId = `child-occupants-${roomNumber}`;
-  const adultOccupantsId = `adult-occupants-${roomNumber}`;
 
   return (
-    <OptionWrapper>
-      {roomNumber === 1 ? (
-        'Room 1'
-      ) : (
-        <Fragment>
+    <OptionWrapper active={active}>
+      <RoomNumberWrapper active={active}>
+        {roomNumber === 1 ? (
+          'Room 1'
+        ) : (
           <label htmlFor={optionId}>
             <input
               id={optionId}
@@ -39,43 +39,20 @@ const RoomOption = ({
             Room
             {roomNumber}
           </label>
-        </Fragment>
-      )}
-      <label htmlFor={adultOccupantsId}>Adults</label>
-      <select
-        id={adultOccupantsId}
-        value={occupants[roomNumber].adultCount}
-        onChange={e => handleOccupantSelect({
-          adultCount: e.target.value,
-          childCount: occupants[roomNumber].childCount,
-          roomNumber,
-        })
-        }
-      >
-        <option value="1">1</option>
-        <option value="2">2</option>
-      </select>
-      <label htmlFor={childOccupantsId}>Children</label>
-      <select
-        id={childOccupantsId}
-        value={occupants[roomNumber].childCount}
-        onChange={e => handleOccupantSelect({
-          childCount: e.target.value,
-          adultCount: occupants[roomNumber].adultCount,
-          roomNumber,
-        })
-        }
-      >
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-      </select>
+        )}
+      </RoomNumberWrapper>
+      <OccupantsSelect {...props} />
     </OptionWrapper>
   );
 };
 
 RoomOption.propTypes = {
-  handleRoomSelect: PropTypes.func.isRequired,
+  occupants: PropTypes.shape({
+    room: PropTypes.shape({
+      adultCount: PropTypes.number.isRequired,
+      childCount: PropTypes.number.isRequired,
+    }),
+  }).isRequired,
   roomCount: PropTypes.number.isRequired,
   roomNumber: PropTypes.number.isRequired,
 };

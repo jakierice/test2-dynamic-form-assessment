@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 export default class extends Component {
+  static propTypes = {
+    initialRoomsData: PropTypes.shape({
+      roomCount: PropTypes.number.isRequired,
+      occupants: PropTypes.shape({
+        room: PropTypes.shape({
+          adultCount: PropTypes.number.isRequired,
+          childCount: PropTypes.number.isRequired,
+        }),
+      }),
+    }),
+  };
+
   state = {
-    ...this.props.initialValues,
+    ...this.props.initialRoomsData,
   };
 
   setOccupants = ({ roomNumber, adultCount, childCount }) => {
-    console.log('setOccupants', { roomNumber, childCount, adultCount });
     this.setState(prevState => ({
       occupants: {
         ...prevState.occupants,
@@ -20,7 +31,11 @@ export default class extends Component {
   };
 
   setRoomCount = roomNumber => {
-    this.setState({ roomCount: roomNumber });
+    this.setState(prevState => {
+      const currentlyActive = prevState.roomCount === roomNumber;
+
+      return { roomCount: currentlyActive ? roomNumber - 1 : roomNumber };
+    });
   };
 
   submitRooms = e => {
